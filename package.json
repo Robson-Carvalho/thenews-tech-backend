@@ -14,8 +14,8 @@
     ]
   },
   "scripts": {
-    "start": "NODE_ENV=production node --trace-deprecation dist/server.js",
-    "dev": "NODE_ENV=development ts-node-dev src/server.ts",
+    "start": "NODE_ENV=prod node --trace-deprecation dist/server.js",
+    "dev": "NODE_ENV=develop ts-node-dev src/server.ts",
     "test": ""
   },
   "keywords": [],
@@ -34,6 +34,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "nodemailer": "^6.10.0"
+    "nodemailer": "^6.10.0",
+    "postgres": "^3.4.5"
   }
 }
