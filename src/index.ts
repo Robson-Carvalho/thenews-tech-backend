@@ -1,6 +1,8 @@
 import express, { Application } from "express";
 import cors from "cors";
 
+import "./infrastructure/job/dailyTask";
+
 import { PostgreSQL } from "./infrastructure/database/postgreSQL";
 import { routes } from "./application/routes";
 import { errorHandler } from "./application/middlewares/errorHandler";
