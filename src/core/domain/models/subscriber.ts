@@ -5,7 +5,6 @@ class Subscriber {
 
   private constructor(id: string, email: string, createdAt: string) {
     this.id = id;
-
     this.email = email;
     this.createdAt = createdAt;
   }

@@ -6,6 +6,7 @@ import {
   IDeleteSubscriberDto,
   IInsertSubscribertDto,
 } from "../../core/dtos/subscriberRepository";
+import { Subscriber } from "../../core/domain/models/subscriber";
 
 class SubscriberRepository implements ISubscriberRepository {
   private sql: Sql;
@@ -28,6 +29,23 @@ class SubscriberRepository implements ISubscriberRepository {
         throw new ConflictError("Subscriber already exists");
       }
       throw new InternalServerError("Failed to insert subscriber");
+    }
+  }
+
+  async getAll(): Promise<Subscriber[]> {
+    try {
+      const result = await this.sql<
+        { id: string; email: string; createdAt: string }[]
+      >`
+        SELECT * FROM subscribers
+      `;
+
+      return result.map((row) =>
+        Subscriber.create(row.id, row.email, row.createdAt)
+      );
+    } catch (error) {
+      console.error("Error getting subscribers:", error);
+      throw new InternalServerError("Failed to get subscribers");
     }
   }
 
