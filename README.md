@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/github/stars/Robson-Carvalho/thenews-tech-backend?style=social" alt="GitHub Stars">
   <img src="https://img.shields.io/github/forks/Robson-Carvalho/thenews-tech-backend?style=social" alt="GitHub Forks">
   <img src="https://img.shields.io/github/issues/Robson-Carvalho/thenews-tech-backend" alt="GitHub Issues">
-  <img src="https://img.shields.io/github/workflow/status/Robson-Carvalho/thenews-tech-backend/CI" alt="Build Status">
+  <img src="https://img.shields.io/github/actions/workflow/status/Robson-Carvalho/thenews-tech-backend/ci.yml?branch=main" alt="Build Status">
   <img src="https://img.shields.io/github/license/Robson-Carvalho/thenews-tech-backend" alt="License">
 </p>
 
@@ -24,6 +24,7 @@
 
 - Node.js
 - Express
+- Node-Cron
 - PostgreSQL
 - Nodemailer
 - TypeScript
@@ -48,9 +49,15 @@ git clone https://github.com/Robson-Carvalho/thenews-tech-backend.git
 
 Use the `.env.example` as reference to create your configuration file `.env` with the required variables:
 
-```yaml
-SMTP_USER=your_user
-SMTP_PASS=your_password
+```yml
+PORT=
+DATABASE_URL=
+
+EXTERNAL_NEWS_API=
+UNSUBSCRIBER_LINK=
+
+NODEMAILER_EMAIL_USER=
+NODEMAILER_PASSWORD=
 ```
 
 <h3>Starting</h3>
@@ -63,13 +70,13 @@ npm start
 
 <h2 id="routes">📍 API Endpoints</h2>
 
-| Route                             | Method | Description                             |
-| --------------------------------- | ------ | --------------------------------------- |
-| <kbd>POST /subscribe</kbd>        | POST   | Subscribes a user to the newsletter     |
-| <kbd>GET /subscribers/count</kbd> | GET    | Returns the number of subscribers       |
+| Route                           | Method | Description                         |
+| ------------------------------- | ------ | ----------------------------------- |
+| <kbd>POST v1/subscriber</kbd>   | POST   | Subscribes a user to the newsletter |
+| <kbd>GET v1/subscriber</kbd>    | GET    | Returns the number of subscribers   |
+| <kbd>DELETE v1/subscriber</kbd> | DELETE | Unsubscriber                        |
 
-
-<h3 id="post-subscribe">POST /subscribe</h3>
+<h3 id="post-subscribe">POST v1/subscriber</h3>
 
 **REQUEST**
 
@@ -83,17 +90,42 @@ npm start
 
 ```json
 {
-  "message": "Subscription successful!"
+  "status": "Success",
+  "message": "Registered"
 }
 ```
 
-<h3 id="get-subscribers-count">GET /subscribers/count</h3>
+<h3 id="get-subscribers-count">GET v1/subscriber/count</h3>
 
 **RESPONSE**
 
 ```json
 {
-  "count": 1200
+  {
+    "status": "Success",
+    "data": {
+      "count": 1
+    }
+  }
+}
+```
+
+<h3 id="delete-subscribers">DELETE v1/subscriber</h3>
+
+**REQUEST**
+
+```json
+{
+  "email": "example@email.com"
+}
+```
+
+**RESPONSE**
+
+```json
+{
+  "status": "Success",
+  "message": "Deleted"
 }
 ```
 
