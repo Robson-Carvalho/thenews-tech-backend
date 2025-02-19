@@ -1,6 +1,6 @@
 import axios from "axios";
-import { InternalServerError } from "../../core/errors/errors";
-import { IArticles } from "../../interfaces/IArticles";
+import { InternalServerError } from "../../../core/errors/errors";
+import { IArticles } from "../../../interfaces/IArticles";
 
 const url = process.env.EXTERNAL_NEWS_API as string;
 
