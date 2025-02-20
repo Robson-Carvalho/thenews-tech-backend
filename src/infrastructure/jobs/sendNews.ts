@@ -19,7 +19,7 @@ const sendNews = async () => {
       emails.push(subscriber.email);
     });
 
-    mailer.sendNewsForSubscriber(emails, news.slice(0, 10));
+    await mailer.sendNewsForSubscriber(emails, news.slice(0, 10));
   }
 };
 
