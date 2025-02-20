@@ -13,9 +13,13 @@ const sendNews = async () => {
 
     const subscribers = await repository.getAll();
 
+    const emails: string[] = [];
+
     subscribers.forEach((subscriber) => {
-      mailer.sendNewsForSubscriber(subscriber.email, news.slice(0, 10));
+      emails.push(subscriber.email);
     });
+
+    mailer.sendNewsForSubscriber(emails, news.slice(0, 10));
   }
 };
 
