@@ -1,6 +1,10 @@
 import { Sql } from "postgres";
 import { ISubscriberRepository } from "../../core/domain/repositories/ISubscriberRepository";
-import { ConflictError, InternalServerError } from "../../core/errors/errors";
+import {
+  ConflictError,
+  InternalServerError,
+  NotFoundError,
+} from "../../core/errors/errors";
 import { PostgreSQL } from "../database/postgreSQL";
 import {
   IDeleteSubscriberDto,
@@ -65,6 +69,13 @@ class SubscriberRepository implements ISubscriberRepository {
     const { email } = dto;
 
     try {
+      const existingSubscriber = await this
+        .sql`SELECT * FROM subscribers WHERE email = ${email}`;
+
+      if (existingSubscriber.length === 0) {
+        throw new NotFoundError("Subscriber not found");
+      }
+
       await this.sql`DELETE FROM subscribers WHERE email = ${email}`;
     } catch (error) {
       console.error("Error deleting subscriber:", error);
