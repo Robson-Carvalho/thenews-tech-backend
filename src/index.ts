@@ -1,7 +1,7 @@
 import express, { Application } from "express";
 import cors from "cors";
 
-import "./infrastructure/job/dailyTask";
+import "./infrastructure/jobs/sendNews";
 
 import { PostgreSQL } from "./infrastructure/database/postgreSQL";
 import { routes } from "./application/routes";
