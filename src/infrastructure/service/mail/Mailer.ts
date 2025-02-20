@@ -30,12 +30,22 @@ class Mailer {
 
   public async sendNewsForSubscriber(emails: string[], articles: IArticles[]) {
     try {
-      await this.transporter.sendMail({
+      const info = await this.transporter.sendMail({
         from: `${process.env.NODEMAILER_EMAIL_USER}`,
         to: [...emails],
-        subject: "The News Tech - Notícias sobre Tecnologia",
+        subject: "TheNews.Tech",
         html: newsTemplateMail(articles),
       });
+
+      console.log("Email enviado com sucesso:", info.response);
+
+      if (info.accepted.length > 0) {
+        console.log("Emails enviados com sucesso para:", info.accepted);
+      }
+
+      if (info.rejected.length > 0) {
+        console.log("Falha ao enviar para:", info.rejected);
+      }
     } catch (error) {
       console.error("Error ao enviar e-mail: ", error);
       throw new InternalServerError("Erro ao enviar e-mail.");
