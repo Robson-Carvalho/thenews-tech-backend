@@ -59,15 +59,15 @@ class SubscriberController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email } = req.body;
+      const { email } = req.params;
 
       if (!email) {
         throw new ValidationError("E-mail required!");
       }
 
-      this._delete.execute({ email });
+      await this._delete.execute({ email });
 
-      res.status(200).json({ status: "Success", message: "Deleted" });
+      return res.status(200).json({ status: "Success", message: "Deleted" });
     } catch (error: any) {
       if (!(error instanceof InternalServerError)) {
         return next(error);

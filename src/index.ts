@@ -12,7 +12,11 @@ const db: PostgreSQL = PostgreSQL.getInstance();
 
 db.connect();
 
-index.use(cors());
+index.use(
+  cors({
+    origin: "*",
+  })
+);
 index.use(express.json());
 index.use("/v1", routes);
 index.use(errorHandler);

@@ -17,7 +17,7 @@ router.post("/", (req: Request, res: Response, next: NextFunction) => {
   subscriberController.insert(req, res, next);
 });
 
-router.delete("/", (req: Request, res: Response, next: NextFunction) => {
+router.delete("/:email", (req: Request, res: Response, next: NextFunction) => {
   subscriberController.delete(req, res, next);
 });
 
