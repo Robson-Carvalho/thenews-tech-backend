@@ -28,13 +28,13 @@ class Mailer {
     return Mailer.instance;
   }
 
-  public async sendNewsForSubscriber(email: string, articles: IArticles[]) {
+  public async sendNewsForSubscriber(emails: string[], articles: IArticles[]) {
     try {
       await this.transporter.sendMail({
         from: `${process.env.NODEMAILER_EMAIL_USER}`,
-        to: email,
+        to: [...emails],
         subject: "The News Tech - Notícias sobre Tecnologia",
-        html: newsTemplateMail(email, articles),
+        html: newsTemplateMail(articles),
       });
     } catch (error) {
       console.error("Error ao enviar e-mail: ", error);
