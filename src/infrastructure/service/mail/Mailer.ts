@@ -7,11 +7,15 @@ class Mailer {
   private static instance: Mailer;
 
   private transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.NODEMAILER_EMAIL_USER as string,
       pass: process.env.NODEMAILER_PASSWORD as string,
     },
+    connectionTimeout: 10000,
+    socketTimeout: 10000,
   });
 
   private constructor() {}
@@ -24,13 +28,13 @@ class Mailer {
     return Mailer.instance;
   }
 
-  public async sendNewsForSubscriber(email: string, articles: IArticles[]) {
+  public async sendNewsForSubscriber(emails: string[], articles: IArticles[]) {
     try {
       await this.transporter.sendMail({
         from: `${process.env.NODEMAILER_EMAIL_USER}`,
-        to: email,
+        to: [...emails],
         subject: "The News Tech - Notícias sobre Tecnologia",
-        html: newsTemplateMail(email, articles),
+        html: newsTemplateMail(articles),
       });
     } catch (error) {
       console.error("Error ao enviar e-mail: ", error);

@@ -26,10 +26,10 @@ const generateArticleHTML = (article: IArticles): string => {
     `;
 };
 
-const newsTemplateMail = (email: string, articles: IArticles[]): string => {
+const newsTemplateMail = (articles: IArticles[]): string => {
   const articlesHTML = articles.map(generateArticleHTML).join("");
   const unsubscribeLink = process.env.UNSUBSCRIBER_LINK as string;
-  const url = `${unsubscribeLink}/${email}`;
+  const url = `${unsubscribeLink}`;
 
   return `
     <!DOCTYPE html>
