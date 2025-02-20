@@ -5,11 +5,7 @@ const router = Router();
 
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(
-      `[Cron Job] Iniciando envio de notícias - Data: ${new Date().toLocaleDateString(
-        "pt-BR"
-      )}`
-    );
+    console.log(`[Cron Job] Iniciando envio de notícias`);
 
     await sendNews();
 
