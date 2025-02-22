@@ -1,6 +1,5 @@
 import { Router, Request, Response } from "express";
 import { subscriberRoutes } from "./subscriberRoutes";
-import { sendNews } from "../../infrastructure/jobs/sendNews";
 import { jobRoutes } from "./jobRoutes";
 
 const router = Router();

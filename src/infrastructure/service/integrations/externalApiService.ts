@@ -4,34 +4,17 @@ import { IArticles } from "../../../interfaces/IArticles";
 
 const url = process.env.EXTERNAL_NEWS_API as string;
 
-const getDateFilter = () => {
-  const today = new Date();
-  today.setDate(today.getDate() - 1);
-  today.setHours(6, 0, 0, 0);
-
-  const yesterday = new Date(today);
-  yesterday.setDate(today.getDate() - 1);
-  yesterday.setHours(0, 0, 0, 0);
-
-  const fromDate = yesterday.toISOString().split(".")[0] + "Z";
-  const toDate = today.toISOString().split(".")[0] + "Z";
-
-  const date = `&from=${fromDate}&to=${toDate}`;
-
-  return date;
-};
-
 const getNewsFromExternalAPI = async (): Promise<IArticles[]> => {
   try {
-    const response = await axios.get(`${url}/${getDateFilter()}`);
+    const response = await axios.get(`${url}}`);
 
     const { data } = await response;
 
-    if (!data) {
+    if (!data.results) {
       return [];
     }
 
-    const { articles }: { articles: IArticles[] } = data;
+    const articles: IArticles[] = data.results;
 
     return articles;
   } catch (error) {

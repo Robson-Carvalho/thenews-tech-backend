@@ -4,21 +4,21 @@ const generateArticleHTML = (article: IArticles): string => {
   return `
       <div class="article" style="border-bottom: 1px solid #ddd; padding: 15px 0;">
         <img src="${
-          article.urlToImage
+          article.image
         }" alt="Article Image" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 5px;">
         <h2 style="margin: 10px 0 5px; font-size: 18px;">
           <a href="${
-            article.url
+            article.href
           }" style="color: #007bff; text-decoration: none;">${article.title}</a>
         </h2>
         <p style="color: #555; font-size: 14px;">
-          <strong>${article.source.name}</strong> - ${
-    article.author ? article.author : "Desconhecido"
+          <strong>${article.source.domain}</strong> - ${
+    article.author.name || "Desconhecido"
   }
         </p>
         <p style="color: #333; font-size: 14px;">${article.description}</p>
         <a href="${
-          article.url
+          article.href
         }" style="color: #007bff; text-decoration: none; font-weight: bold;">
           Leia mais...
         </a>

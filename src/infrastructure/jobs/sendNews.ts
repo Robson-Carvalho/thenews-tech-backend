@@ -2,6 +2,7 @@ import { getNewsFromExternalAPI } from "../service/integrations/externalApiServi
 import { SubscriberRepository } from "../repositories/subscriberRepository";
 import { PostgreSQL } from "../database/postgreSQL";
 import { Mailer } from "../service/mail/Mailer";
+import { IArticles } from "../../interfaces/IArticles";
 
 const sendNews = async () => {
   const news = await getNewsFromExternalAPI();
@@ -19,7 +20,20 @@ const sendNews = async () => {
       emails.push(subscriber.email);
     });
 
-    await mailer.sendNewsForSubscriber(emails, news.slice(0, 10));
+    const newsForSend: IArticles[] = [];
+
+    news.forEach((_news) => {
+      if (
+        !newsForSend.some(
+          (existingArticle) => existingArticle.title === _news.title
+        ) &&
+        newsForSend.length < 10
+      ) {
+        newsForSend.push(_news);
+      }
+    });
+
+    await mailer.sendNewsForSubscriber(emails, newsForSend);
   }
 };
 
