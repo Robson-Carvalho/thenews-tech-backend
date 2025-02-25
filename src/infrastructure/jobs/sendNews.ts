@@ -20,18 +20,7 @@ const sendNews = async () => {
       emails.push(subscriber.email);
     });
 
-    const newsForSend: IArticles[] = [];
-
-    news.forEach((_news) => {
-      if (
-        !newsForSend.some(
-          (existingArticle) => existingArticle.title === _news.title
-        ) &&
-        newsForSend.length < 10
-      ) {
-        newsForSend.push(_news);
-      }
-    });
+    const newsForSend: IArticles[] = news.slice(0, 10);
 
     await mailer.sendNewsForSubscriber(emails, newsForSend);
   }

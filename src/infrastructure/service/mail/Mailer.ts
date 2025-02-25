@@ -31,7 +31,7 @@ class Mailer {
   public async sendNewsForSubscriber(emails: string[], articles: IArticles[]) {
     try {
       const info = await this.transporter.sendMail({
-        from: `${process.env.NODEMAILER_EMAIL_USER}`,
+        from: `"the news tech 💻" <${process.env.NODEMAILER_EMAIL_USER}>`,
         to: [...emails],
         subject: "TheNews.Tech",
         html: newsTemplateMail(articles),
