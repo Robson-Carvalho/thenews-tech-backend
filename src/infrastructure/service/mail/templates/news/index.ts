@@ -4,21 +4,21 @@ const generateArticleHTML = (article: IArticles): string => {
   return `
       <div class="article" style="border-bottom: 1px solid #ddd; padding: 15px 0;">
         <img src="${
-          article.image
+          article.urlToImage
         }" alt="Article Image" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 5px;">
         <h2 style="margin: 10px 0 5px; font-size: 18px;">
           <a href="${
-            article.href
+            article.url
           }" style="color: #007bff; text-decoration: none;">${article.title}</a>
         </h2>
         <p style="color: #555; font-size: 14px;">
-          <strong>${article.source.domain}</strong> - ${
-    article.author.name || "Desconhecido"
+          <strong>${article.source.name}</strong> - ${
+    article.author || "Desconhecido"
   }
         </p>
         <p style="color: #333; font-size: 14px;">${article.description}</p>
         <a href="${
-          article.href
+          article.url
         }" style="color: #007bff; text-decoration: none; font-weight: bold;">
           Leia mais...
         </a>
@@ -37,10 +37,10 @@ const newsTemplateMail = (articles: IArticles[]): string => {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>The News Tech API</title>
+      <title>The News Tech</title>
     </head>
     <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; max-width: 600px; margin: auto;">
-      <h1 style="text-align: center; color: #333;">The News Tech API 💻</h1>
+      <h1 style="text-align: center; color: #333;">The News Tech 💻</h1>
       <p style="text-align: center; color: #777;">Portal de notícias sobre tecnologia.</p>
       <div style="background: #fff; padding: 15px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
         ${articlesHTML}
