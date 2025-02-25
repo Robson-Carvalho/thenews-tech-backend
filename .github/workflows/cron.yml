@@ -1,7 +1,7 @@
 name: Run Vercel Job
 on:
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "30 16 * * *" # 13h30 no horário de Brasília (GMT-3) -> 16h30 UTC
   workflow_dispatch:
 jobs:
   call-api:
