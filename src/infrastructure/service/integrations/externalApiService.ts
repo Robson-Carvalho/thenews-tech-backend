@@ -20,8 +20,7 @@ const url = process.env.EXTERNAL_NEWS_API as string;
 const filter = getDynamicFilter();
 const getNewsFromExternalAPI = async (): Promise<IArticles[] | []> => {
   try {
-    const fullUrl = `${url}?${filter}&language=pt&sortBy=popularity`;
-    console.log(`Requisição para URL: ${fullUrl}`);
+    const fullUrl = `${url}&${filter}`;
 
     const response = await axios.get(fullUrl);
 
@@ -32,6 +31,7 @@ const getNewsFromExternalAPI = async (): Promise<IArticles[] | []> => {
     }
 
     const articles: IArticles[] = data.articles;
+
     return articles;
   } catch (error) {
     console.error("Erro ao buscar dados da API externa:", error);
